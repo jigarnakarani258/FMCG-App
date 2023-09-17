@@ -1,3 +1,4 @@
+const { setUserRolePermission } = require('../middlewares/RoleBasedUserPermission');
 const { Users } = require('../models/userModel');
 const passport = require('passport')
 
@@ -6,12 +7,12 @@ var JwtStrategy = require('passport-jwt').Strategy,
 var opts = {}
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = process.env.JWT_SECRETKEY;
+opts.passReqToCallback= true ;
 
-
-passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+passport.use(new JwtStrategy(opts, function( req,jwt_payload, done) {
     
-    //role_based_acesss
-    //console.log(jwt_payload);
+    //role_based_acesss 
+    setUserRolePermission(jwt_payload.role , req)
     Users.findById(jwt_payload.id)
         .then( (user) => {
             if (user) {

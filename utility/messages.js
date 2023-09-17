@@ -1,6 +1,9 @@
 
 let messages = {}
 
+// Authentication Middleware 
+messages.roletype_not_found = "User role type not found"
+
 // user module
 messages.email_already_exist = "This email already exists.!!"
 messages.user_registered_successfully = "Customer has been registered successfully"

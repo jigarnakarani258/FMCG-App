@@ -28,11 +28,15 @@ app.use('/api/v1', userRouter)
 app.use('/api/v1', productRouter)
 app.use('/api/v1', orderRouter)
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('Welcome to the FMCG app backend.');
-});
+//set local variable with request for user-role based permission
+app.use((req, res, next)=>{
 
+    req.app.locals = {
+        pemission_flag : false,
+        pemission_message : ''
+    } ;
+    next();
+  });
 
 //passport authentication 
 app.use(passport.initialize());
