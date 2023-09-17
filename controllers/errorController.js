@@ -67,7 +67,6 @@ const globalErrController = (err, req, res, next) => {
     }
     if (err.err.code === 11000) {
       error = HandleDuplicateFieldsDB(error.err);
-      console.log(error);
     }
     if (err.err.name === 'ValidationError') {
       error = HandleValidationErrorDB(error.err);

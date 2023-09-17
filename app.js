@@ -1,16 +1,18 @@
 const express = require('express')
 const app = express();
 
-
+const {globalErrController} = require('./controllers/errorController')
 const {AppError} =require('./utility/appError')
 const { userRouter } = require(`${__dirname}/routes/userRoutes.js`)
 const { productRouter } = require('./routes/productRoutes');
-const {globalErrController} = require('./controllers/errorController')
+const { orderRouter } = require('./routes/orderRoutes');
+
+const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const passport = require('passport');
-const { orderRouter } = require('./routes/orderRoutes');
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -19,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use( express.json() );
 app.use( (req , res , next) =>{
     req.requestTime = new Date().toISOString();
-    next()       //if you forgot to call next function then response will not get of API
+    next();
 })
 
 //read static file
@@ -28,9 +30,48 @@ app.use('/api/v1', userRouter)
 app.use('/api/v1', productRouter)
 app.use('/api/v1', orderRouter)
 
+const swaggerOptions = {
+    swaggerDefinition: {
+        info: {
+            title: 'FMCG-APP',
+            description: `FMCG (Fast Moving Consumer Goods) apps have various use cases across different stages.
+                            In this app we manage user , prodct and order management.`
+        },
+        tags: [
+            {
+                name: 'User Management',
+                description: 'User management related APIs .',
+            },
+            {
+                name: 'Product Management',
+                description: 'Product management related APIs .',
+            },
+            {
+                name: 'Order Management',
+                description: 'Order management related APIs .',
+            },
+        ],
+        securityDefinitions: {
+            jwt: {
+                type: 'apiKey',
+                name: 'Authorization',
+                in: 'header',
+            },
+        },
+        basePath: '/api/v1',
+    },
+    apis: [
+        "./routes/userRoutes.js",
+        "./routes/productRoutes.js",
+        "./routes/orderRoutes.js"]
+}
+
+const swaggerDocs = swaggerJsDoc(swaggerOptions);
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+
+
 //set local variable with request for user-role based permission
 app.use((req, res, next)=>{
-
     req.app.locals = {
         pemission_flag : false,
         pemission_message : ''
