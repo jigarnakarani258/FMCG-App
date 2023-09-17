@@ -205,28 +205,48 @@ const deleteProductByID = async (req, res, next) => {
 
 };
 
-//change logic - add pagination
-//getAllProductList API , Authenticated with Passport JS
+
 const getAllProductList = async (req, res, next) => {
-
   try {
-    let productList = await Products.find({}, { __v: 0 })
+    const { product_category , price_range, product_name } = req.query;
+    const page =  req.query.page || 1 ;
+    const limit =  req.query.limit || 10 ;
+    
+    // create the filter criteria based on query request parameters
+    const filter = {};
+    if (product_category) {
+      filter.product_category = product_category;
+    }
+    if (price_range) {
+      const [minPrice, maxPrice] = price_range.split('-');  //sample price_range = 100-2000
+      filter.product_price = { $gte: minPrice, $lte: maxPrice };
+    }
+    if (product_name) {
+      filter.product_name = { $regex: new RegExp(product_name, 'i') }; 
+    }
 
-    return res.status(200).send({
-      status: "success",
-      requestAt: req.requestTime,
-      NoResults: productList.length,
-      data: {
-        products: productList,
-      },
-    });
-  } 
-  catch (err) {
-    return next(new AppError(err, 400));
-  }
-
-
-};
+     const skip = (page - 1) * limit;
+    
+     // Query into mongoDB with filtering and pagination
+     const productList = await Products.find(filter, { __v: 0 })
+       .skip(skip)
+       .limit(limit);
+ 
+     const totalResults = await Products.countDocuments(filter);
+ 
+     return res.status(200).send({
+       status: "success",
+       requestAt: req.requestTime,
+       NoResults: productList.length,
+       totalResults,
+       data: {
+         products: productList,
+       },
+     });
+   } catch (err) {
+     return next(new AppError(err, 400));
+   }
+ };
 
 module.exports = {
   addProduct,
