@@ -1,0 +1,628 @@
+{
+	"info": {
+		"_postman_id": "c59493d2-94b4-4cbd-a5ae-469cdf254aca",
+		"name": "FMCG_APP_PracticalTask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23434291"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"admin4\",\r\n    \"email\": \"admin4@gmail.com\",\r\n    \"password\": \"admin@123\",\r\n    \"role\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SignIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\" : \"jigar@gmail.com\",\r\n    \"password\" : \"jigar@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/SignIn",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"SignIn"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCurrentProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDU5Nzc5NGU0ODY3MmE4ZDAxODg0OCIsImVtYWlsIjoiamlnc0BnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2OTQ5NTQ1NjUsImV4cCI6MTY5NzU0NjU2NX0.nEEvxPQCdoV7IDo2ZY7rBJ_b4EgyS6g9U_3DeaQrF2c",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/GetCurrentProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"GetCurrentProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProfile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDU5Nzc5NGU0ODY3MmE4ZDAxODg0OCIsImVtYWlsIjoiYUBnbWFpbC5jb20iLCJyb2xlIjoiY3VzdG9tZXIiLCJpYXQiOjE2OTQ4NjkxODQsImV4cCI6MTY5NzQ2MTE4NH0.m8LrdSIqv1BaZzbzbrFFpGehlaAGsr6u_fXNXO_SZuE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"name\": \"Jigspatel\",\r\n    \"password\": \"jigs@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/UpdateProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"UpdateProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllUserList",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDcwODg4NTJkYTgzODRkOTQyZTdjMSIsImVtYWlsIjoiYWRtaW40QGdtYWlsLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTY5NDk1OTc2OCwiZXhwIjoxNjk3NTUxNzY4fQ.9TKILCQAmZ6JEQc6ze0Xu2eRtr6L9C1Pp4RCLF65MT0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/getAllUserList?role=customer&name=jigar1&page=1&limit=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"getAllUserList"
+							],
+							"query": [
+								{
+									"key": "role",
+									"value": "customer"
+								},
+								{
+									"key": "name",
+									"value": "jigar1"
+								},
+								{
+									"key": "email",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "createOrder",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDVmZDJmMTI4M2VmZGFjMzcxMGFmOSIsImVtYWlsIjoiamlnYXJAZ21haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjk0OTYyMDQwLCJleHAiOjE2OTc1NTQwNDB9.6kgJCigKmQlTscU56IhZtKH_mFM49glB61zqCenodFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_id\": \"6506079d7f2d033af11657f4\",\r\n    \"order_price\": \"563\",\r\n    \"order_address\": \"Mumbai\"    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/createOrder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"createOrder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOrderByID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/getOrderByID/6506ccc271cca14a04cf57ff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"getOrderByID",
+								"6506ccc271cca14a04cf57ff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllOrderList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/getAllOrderList?date=2023-04-01,2023-12-31&user_id=6506a05dab48351affaa2f00&order_price_range=1-1000&order_price=800&page=1&limit=10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"getAllOrderList"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2023-04-01,2023-12-31"
+								},
+								{
+									"key": "product_id",
+									"value": "6506079d7f2d033af11657f4",
+									"disabled": true
+								},
+								{
+									"key": "user_id",
+									"value": "6506a05dab48351affaa2f00"
+								},
+								{
+									"key": "order_price_range",
+									"value": "1-1000"
+								},
+								{
+									"key": "order_price",
+									"value": "800"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancelOrderByID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDVmZDJmMTI4M2VmZGFjMzcxMGFmOSIsImVtYWlsIjoiamlnYXJAZ21haWwuY29tIiwicm9sZSI6ImN1c3RvbWVyIiwiaWF0IjoxNjk0OTYyMDQwLCJleHAiOjE2OTc1NTQwNDB9.6kgJCigKmQlTscU56IhZtKH_mFM49glB61zqCenodFk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/cancelOrderByID/6506f792f6b3739cdb5df8ba",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"cancelOrderByID",
+								"6506f792f6b3739cdb5df8ba"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateOrderStatusByID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"order_status\": \"Shampoo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/update_order_statusByID/6506ccc271cca14a04cf57ff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"update_order_statusByID",
+								"6506ccc271cca14a04cf57ff"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDZmNmI5ZjZiMzczOWNkYjVkZjg5OSIsImVtYWlsIjoiYWJhQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2OTQ5NTUyMDUsImV4cCI6MTY5NzU0NzIwNX0.R3S_tjLIpj12_rmxd2SU0Xpa3_qQtD8V24ssMMkJGuw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "GetProductById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/getProductByID/6506079d7f2d033af11657f4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"getProductByID",
+								"6506079d7f2d033af11657f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllProductList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/getAllProductList?price_range=0-1020&page=1&limit=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"getAllProductList"
+							],
+							"query": [
+								{
+									"key": "product_category",
+									"value": "HaiArGrowth",
+									"disabled": true
+								},
+								{
+									"key": "price_range",
+									"value": "0-1020"
+								},
+								{
+									"key": "product_name",
+									"value": "han",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "addProduct",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"product_name\": \"Kal bati\",\r\n    \"product_brand\": \"Thakkar thal\",\r\n    \"product_price\": \"220\",\r\n    \"product_category\": \"food\",\r\n    \"product_seller\": \"6506f6b9f6b3739cdb5df899\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/addProduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"addProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProductByID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"product_name\": \"Shampoo\",\r\n    // \"product_brand\": \"Beardo\",\r\n    \"product_price\": \"250\",\r\n    // \"product_category\": \"SkinCare\",\r\n    \"product_seller\": \"6505fd2f1283efdac3710af9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/updateProductByID/650711eefc7a65e5f86f485f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"updateProductByID",
+								"650711eefc7a65e5f86f485f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "setProductAvailabilityByID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"is_available\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/v1/setProductAvailabilityByID/650711eefc7a65e5f86f485f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"setProductAvailabilityByID",
+								"650711eefc7a65e5f86f485f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProductByID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/v1/deleteProductByID/6507126cfc7a65e5f86f4876",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"deleteProductByID",
+								"6507126cfc7a65e5f86f4876"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDZmNmI5ZjZiMzczOWNkYjVkZjg5OSIsImVtYWlsIjoiYWJhQGdtYWlsLmNvbSIsInJvbGUiOiJzZWxsZXIiLCJpYXQiOjE2OTQ5NTUyMDUsImV4cCI6MTY5NzU0NzIwNX0.R3S_tjLIpj12_rmxd2SU0Xpa3_qQtD8V24ssMMkJGuw",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
