@@ -31,11 +31,12 @@ messages.enter_valid_value_of_product = "please enter valid value of product"
 //order module
 messages.product_is_not_Available_for_order = "Product is not-availble now due to out of stock "
 messages.order_created_successfully = "Order has been placed successfully"
-messages.order_updated_successfully = "Order has been updated successfully"
+messages.order_updated_successfully = "Order_status has been updated successfully"
 messages.order_cancel_successfully = "Order has been cancel successfully"
 messages.order_already_cancelled = "Order has been already cancelled eariler."
 messages.order_not_found_with_provided_id = "Order is not found with provided order_id "
 messages.fetch_order_info_successfully = "Fetch order info successfully"
+messages.enter_valid_value_of_order = "please enter valid value of orderenter_valid_value_of_order."
 
 //pagination 
 messages.enter_valid_value_for_pagination = "Please Enter valid(Greater then Zero) value for the page and limit query parameter."

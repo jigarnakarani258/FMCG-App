@@ -9,6 +9,14 @@ const createOrder = async (req, res, next) => {
   try {
     const {product_id, order_price, order_address } = req.body;
 
+    if(  product_id == "string" || order_address == "string" || order_price <= 0 ){
+      return res.status(400).json({
+        status: "Bad Request",
+        requestAt: req.requestTime,
+        errorCode: 400,
+        message: messages.enter_valid_value_of_order
+      });
+    }
     //product_buyer id get from token
     let product_buyer = req.user._id
 
