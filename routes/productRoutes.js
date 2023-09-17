@@ -3,7 +3,7 @@ const { addProduct,
   getProductByID,
   updateProductByID,
   deleteProductByID,
-  make_not_Available_ProductByID,
+  setProductAvailabilityByID,
   getAllProductList
    } = require('../controllers/productController')
 const passport = require('passport')
@@ -19,8 +19,8 @@ productRouter.route("/updateProductByID/:product_id")
 productRouter.route("/deleteProductByID/:product_id")
   .delete( passport.authenticate("jwt", { session: false }), deleteProductByID);
 
-productRouter.route("/make_not_Available_ProductByID/:product_id")
-  .put( passport.authenticate("jwt", { session: false }), make_not_Available_ProductByID);
+productRouter.route("/setProductAvailabilityByID/:product_id")
+  .put( passport.authenticate("jwt", { session: false }), setProductAvailabilityByID);
 
 
 productRouter.route('/getAllProductList')

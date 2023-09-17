@@ -136,15 +136,16 @@ const updateProductByID = async (req, res, next) => {
 
 };
 
-//make_not_Available_ProductByID API , Authenticated with Passport JS
-const make_not_Available_ProductByID = async (req, res, next) => {
+//setProductAvailabilityByID API , Authenticated with Passport JS
+const setProductAvailabilityByID = async (req, res, next) => {
 
   try {
     const id = req.user._id
 
     let product_id = req.params.product_id
+    let { is_available } = req.body ;
 
-    let updatedProduct = await Products.findByIdAndUpdate(product_id, { is_available: false }, {
+    let updatedProduct = await Products.findByIdAndUpdate(product_id, { is_available: is_available }, {
       new: true,
       runValidators: true,
     });
@@ -161,7 +162,7 @@ const make_not_Available_ProductByID = async (req, res, next) => {
         status: "Success",
         requestAt: req.requestTime,
         updatedProduct: updatedProduct,
-        message: messages.product_is_now_not_available,
+        message: is_available ? messages.product_is_now_available : messages.product_is_now_not_available,
       });
     }
   }
@@ -208,16 +209,23 @@ const deleteProductByID = async (req, res, next) => {
 //getAllProductList API , Authenticated with Passport JS
 const getAllProductList = async (req, res, next) => {
 
-  let productList = await Products.find({}, { __v: 0 })
+  try {
+    let productList = await Products.find({}, { __v: 0 })
 
-  return res.status(200).send({
-    status: "success",
-    requestAt: req.requestTime,
-    NoResults: productList.length,
-    data: {
-      products: productList,
-    },
-  });
+    return res.status(200).send({
+      status: "success",
+      requestAt: req.requestTime,
+      NoResults: productList.length,
+      data: {
+        products: productList,
+      },
+    });
+  } 
+  catch (err) {
+    return next(new AppError(err, 400));
+  }
+
+
 };
 
 module.exports = {
@@ -225,7 +233,7 @@ module.exports = {
   getProductByID,
   updateProductByID,
   deleteProductByID,
-  make_not_Available_ProductByID,
+  setProductAvailabilityByID,
   getAllProductList
 }
 
