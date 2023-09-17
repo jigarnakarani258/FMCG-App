@@ -187,20 +187,46 @@ const updateCurrentUserProfile = async (req, res, next) => {
 };
 
 //getAllUserList API , Authenticated with Passport JS
-const getAllUserList = async (req, res) => {
+const getAllUserList = async (req, res, next) => {
+  try {
+    const { name, email, role } = req.query;
+    const page =  req.query.page || 1 ;
+    const limit =  req.query.limit || 10 ;
 
-  let userList = await Users.find({},{ __v: 0})
+    // create the filter criteria based on query request parameters
+    const filter = {};
+    if (name) {
+      filter.name = { $regex: new RegExp(name, 'i') }; 
+    }
+    if (email) {
+      filter.email = { $regex: new RegExp(email, 'i') }; 
+    }
+    if (role) {
+      filter.role = role;
+    }
 
-  return res.status(200).send({
-    status: "success",
-    requestAt: req.requestTime,
-    NoResults: userList.length,
-    data: {
-      users: userList,
-    },
-  });
+    const skip = (page - 1) * limit;
+
+    // Query into mongoDB with filtering and pagination
+    const userList = await Users.find(filter, { __v: 0 })
+      .skip(skip)
+      .limit(limit);
+
+    const totalResults = await Users.countDocuments(filter);
+
+    return res.status(200).send({
+      status: "success",
+      requestAt: req.requestTime,
+      NoResults: userList.length,
+      totalResults,
+      data: {
+        users: userList,
+      },
+    });
+  } catch (err) {
+    return next(new AppError(err, 400));
+  }
 };
-
 
 module.exports = {
   SignUp,
