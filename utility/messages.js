@@ -26,6 +26,7 @@ messages.product_deleted_successfully = "Product has been deleted successfully"
 messages.product_is_now_not_available = "Product is not-availble now due to out of stock "
 messages.product_is_now_available = "Product is availble now ."
 messages.product_not_found_with_provided_id = "Product is not found with provided product_id "
+messages.enter_valid_value_of_product = "please enter valid value of product"
 
 //order module
 messages.product_is_not_Available_for_order = "Product is not-availble now due to out of stock "

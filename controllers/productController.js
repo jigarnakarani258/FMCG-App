@@ -11,6 +11,15 @@ const addProduct = async (req, res, next) => {
     //product_seller id get from token
     let product_seller = req.user._id
 
+    if(  product_name == "string" || product_brand == "string" || product_price <= 0 || product_category == "string"){
+      return res.status(400).json({
+        status: "Bad Request",
+        requestAt: req.requestTime,
+        errorCode: 400,
+        message: messages.enter_valid_value_of_product
+      });
+    }
+
     let product = new Products({
       product_name: product_name,
       product_brand: product_brand,
@@ -100,6 +109,17 @@ const updateProductByID = async (req, res, next) => {
 
     let product_id = req.params.product_id
     let { product_name, product_brand, product_price, product_category, product_seller } = req.body;
+
+    if(  product_name == "string" || product_brand == "string" || product_price <= 0 || 
+          product_category == "string" || product_seller == "string"){
+      return res.status(400).json({
+        status: "Bad Request",
+        requestAt: req.requestTime,
+        errorCode: 400,
+        message: messages.enter_valid_value_of_product
+      });
+    }
+
     let updateProductData;
 
     updateProductData = {
