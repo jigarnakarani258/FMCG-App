@@ -16,11 +16,12 @@ const signToken = (id, email, role) => {
 const SignUp = async (req, res, next) => {
 
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password , role } = req.body;
     let user = new Users({
       name: name,
       email: email,
-      password: password
+      password: password,
+      role : role
     });
 
     user
@@ -33,7 +34,8 @@ const SignUp = async (req, res, next) => {
             newUser: {
               id: user._id,
               email: user.email,
-              name: user.name
+              name: user.name,
+              role : user.role
             },
           },
           message: messages.user_registered_successfully

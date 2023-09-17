@@ -17,10 +17,11 @@ const userSchema = new mongoose.Schema({
     role: {
       type: String,
       enum: {
-        values: ['admin', 'customer'],
-        message: '{VALUE} is not supported for user role.'
+        values: ['admin', 'customer','seller'],
+        message: `user role is only one of this value:- 'admin', 'customer','seller'`
       },
-      default: 'customer' 
+      required: [true, 'Please provide your role'],
+    
     },
     is_active: {
       type: Boolean,
