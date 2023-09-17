@@ -135,16 +135,56 @@ const cancelOrderByID = async (req, res, next) => {
 
 };
 
-//change logic - add pagination
+
 //getAllOrderList API , Authenticated with Passport JS
 const getAllOrderList = async (req, res, next) => {
-
   try {
-    let orderList = await Orders.find({}, { __v: 0 })
+    const { product_id, user_id, order_price_range, order_price, date } = req.query;
+    const page =  req.query.page || 1 ;
+    const limit =  req.query.limit || 10 ;
+
+    if(page <= 0 || limit <=0){
+      return res.status(401).json({
+        status: "Bad Request",
+        requestAt: req.requestTime,
+        errorCode: 400,
+        message: messages.enter_valid_value_for_pagination
+      });
+    }
+
+    // create the filter criteria based on query request parameters
+    const filter = {};
+    if (product_id) {
+      filter.product_id = product_id;
+    }
+    if (user_id) {
+      filter.orderedByUser = user_id;
+    }
+    if (order_price_range) {
+      const [minPrice, maxPrice] = order_price_range.split('-');  //sample order_price_range = 100-2000
+      filter.order_price = { $gte: minPrice, $lte: maxPrice };
+    }
+    if (order_price) {
+      filter.order_price = order_price;
+    }
+    if (date) {                       
+      const [startDate, endDate] = date.split(',');  //sample date is a range like "2023-01-01,2023-12-31"
+      filter.createdAt = { $gte: startDate, $lte: endDate };
+    }
+
+    const skip = (page - 1) * limit;
+
+    const orderList = await Orders.find(filter, { __v: 0 })
+      .skip(skip)
+      .limit(limit);
+
+    const totalResults = await Orders.countDocuments(filter);
+
     return res.status(200).send({
       status: "success",
       requestAt: req.requestTime,
       NoResults: orderList.length,
+      totalResults,
       data: {
         Orders: orderList,
       },
@@ -152,8 +192,8 @@ const getAllOrderList = async (req, res, next) => {
   } catch (err) {
     return next(new AppError(err, 400));
   }
- 
 };
+
 
 //updateOrderStatusByID API , Authenticated with Passport JS
 const updateOrderStatusByID = async (req, res, next) => {

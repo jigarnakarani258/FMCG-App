@@ -205,12 +205,21 @@ const deleteProductByID = async (req, res, next) => {
 
 };
 
-
+//getAllProductList API , Authenticated with Passport JS
 const getAllProductList = async (req, res, next) => {
   try {
     const { product_category , price_range, product_name } = req.query;
     const page =  req.query.page || 1 ;
     const limit =  req.query.limit || 10 ;
+
+    if(page <= 0 || limit <=0){
+      return res.status(401).json({
+        status: "Bad Request",
+        requestAt: req.requestTime,
+        errorCode: 400,
+        message: messages.enter_valid_value_for_pagination
+      });
+    }
     
     // create the filter criteria based on query request parameters
     const filter = {};

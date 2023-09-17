@@ -36,4 +36,7 @@ messages.order_already_cancelled = "Order has been already cancelled eariler."
 messages.order_not_found_with_provided_id = "Order is not found with provided order_id "
 messages.fetch_order_info_successfully = "Fetch order info successfully"
 
+//pagination 
+messages.enter_valid_value_for_pagination = "Please Enter valid(Greater then Zero) value for the page and limit query parameter."
+
 module.exports.messages = messages

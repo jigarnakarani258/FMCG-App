@@ -193,6 +193,15 @@ const getAllUserList = async (req, res, next) => {
     const page =  req.query.page || 1 ;
     const limit =  req.query.limit || 10 ;
 
+    if(page <= 0 || limit <=0){
+      return res.status(401).json({
+        status: "Bad Request",
+        requestAt: req.requestTime,
+        errorCode: 400,
+        message: messages.enter_valid_value_for_pagination
+      });
+    }
+
     // create the filter criteria based on query request parameters
     const filter = {};
     if (name) {
