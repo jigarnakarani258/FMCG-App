@@ -23,8 +23,9 @@ const addProduct = async (req, res, next) => {
     const ValidProduct = await Products.findOne({ product_name: product_name, product_seller: product_seller });
     if (ValidProduct) {
       return res.status(400).json({
-        status: "fail",
+        status: "Bad Request",
         requestAt: req.requestTime,
+        errorCode: 400,
         message: messages.product_already_addded_by_seller
       });
     }
@@ -69,7 +70,7 @@ const getProductByID = async (req, res, next) => {
     let getProduct = await Products.findById(product_id)
 
     if (getProduct === undefined || getProduct === "" || getProduct === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -85,7 +86,7 @@ const getProductByID = async (req, res, next) => {
       });
     }
   } catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 
 
@@ -114,7 +115,7 @@ const updateProductByID = async (req, res, next) => {
       runValidators: true,
     });
     if (updatedProduct === undefined || updatedProduct === "" || updatedProduct === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -131,7 +132,7 @@ const updateProductByID = async (req, res, next) => {
     }
   }
   catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 
 };
@@ -150,7 +151,7 @@ const setProductAvailabilityByID = async (req, res, next) => {
       runValidators: true,
     });
     if (updatedProduct === undefined || updatedProduct === "" || updatedProduct === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -167,7 +168,7 @@ const setProductAvailabilityByID = async (req, res, next) => {
     }
   }
   catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 
 
@@ -184,7 +185,7 @@ const deleteProductByID = async (req, res, next) => {
     let deleteProduct = await Products.findByIdAndDelete(product_id)
 
     if (deleteProduct === undefined || deleteProduct === "" || deleteProduct === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -200,7 +201,7 @@ const deleteProductByID = async (req, res, next) => {
       });
     }
   } catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 
 };

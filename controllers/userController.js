@@ -46,7 +46,7 @@ const SignUp = async (req, res, next) => {
       });
 
   } catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 };
 
@@ -81,20 +81,20 @@ const SignIn = async (req, res, next) => {
       var SignInUser = await Users.findOne({ email: email }).select('+password');
     }
     else {
-      return res.status(401).json({
+      return res.status(400).json({
         status: "Bad Request",
         requestAt: req.requestTime,
-        errorCode: 401,
+        errorCode: 400,
         message: messages.invalid_email
       });
     }
 
     //3) check user is active or deactive
     if (!ValidUser.is_active) {
-      return res.status(401).json({
+      return res.status(400).json({
         status: "Bad Request",
         requestAt: req.requestTime,
-        errorCode: 401,
+        errorCode: 400,
         message: messages.user_is_not_active
       });
     }
@@ -114,10 +114,10 @@ const SignIn = async (req, res, next) => {
       });
     }
     else {
-      return res.status(401).json({
+      return res.status(400).json({
         status: "Bad Request",
         requestAt: req.requestTime,
-        errorCode: 401,
+        errorCode: 400,
         message: messages.invalid_password
       });
     }
@@ -165,7 +165,7 @@ const updateCurrentUserProfile = async (req, res, next) => {
       runValidators: true,
     });
     if (updatedUser === undefined || updatedUser === "" || updatedUser === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -194,7 +194,7 @@ const getAllUserList = async (req, res, next) => {
     const limit =  req.query.limit || 10 ;
 
     if(page <= 0 || limit <=0){
-      return res.status(401).json({
+      return res.status(400).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 400,

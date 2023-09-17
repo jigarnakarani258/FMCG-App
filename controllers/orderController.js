@@ -19,7 +19,6 @@ const createOrder = async (req, res, next) => {
       orderedByUser: product_buyer
     });
 
-    //check this logic one more time-and operator use in query otherwise
     const ProductIsAvailableForOrder = await Products.findById({ _id: product_id },{__v:0});
     if (!ProductIsAvailableForOrder.is_available) {
       return res.status(400).json({
@@ -52,7 +51,7 @@ const createOrder = async (req, res, next) => {
         return next(new AppError(err, 401));
       });
   } catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 
 };
@@ -68,7 +67,7 @@ const getOrderByID = async (req, res, next) => {
     let getOrder = await Orders.findById(order_id)
 
     if (getOrder === undefined || getOrder === "" || getOrder === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -114,7 +113,7 @@ const cancelOrderByID = async (req, res, next) => {
     });
 
     if (cancelOrder === undefined || cancelOrder === "" || cancelOrder === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -144,7 +143,7 @@ const getAllOrderList = async (req, res, next) => {
     const limit =  req.query.limit || 10 ;
 
     if(page <= 0 || limit <=0){
-      return res.status(401).json({
+      return res.status(400).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 400,
@@ -199,7 +198,7 @@ const getAllOrderList = async (req, res, next) => {
 const updateOrderStatusByID = async (req, res, next) => {
 
   try {
-    //acess by admin-seller
+    //acesss by admin-seller
     const id = req.user._id
 
     let order_id = req.params.order_id
@@ -210,7 +209,7 @@ const updateOrderStatusByID = async (req, res, next) => {
       runValidators: true,
     });
     if (updatedOrderStatus === undefined || updatedOrderStatus === "" || updatedOrderStatus === null) {
-      return res.status(401).json({
+      return res.status(404).json({
         status: "Bad Request",
         requestAt: req.requestTime,
         errorCode: 404,
@@ -228,7 +227,7 @@ const updateOrderStatusByID = async (req, res, next) => {
     }
   }
   catch (err) {
-    return next(new AppError(err, 401));
+    return next(new AppError(err, 400));
   }
 
 };
