@@ -30,7 +30,7 @@ const sendErrToProduction = (err, res) => {
 };
 
 const HandleCastErrorDB = (err) => {
-  err.message = `Invalid ${err.path} : ${err.value} , Enter right value of product_id`;
+  err.message = `Invalid ${err.path} : ${err.value} , Enter right value of ${err.path} field`;
   return new AppError(err, 400);
 };
 
@@ -44,6 +44,11 @@ const HandleValidationErrorDB = (err) => {
     (el) => el.properties.message
   );
   err.message = `Input valid value: ${errMessage.join(' , ')}`;
+  return new AppError(err, 400);
+};
+
+const HandleCustomPathErrorDB = (err) => {
+  err.message = err.message;
   return new AppError(err, 400);
 };
 
@@ -66,6 +71,9 @@ const globalErrController = (err, req, res, next) => {
     }
     if (err.err.name === 'ValidationError') {
       error = HandleValidationErrorDB(error.err);
+    }
+    if (err.err.name === 'customPathError') {
+      error = HandleCustomPathErrorDB(error.err);
     }
 
     sendErrToProduction(error, res);

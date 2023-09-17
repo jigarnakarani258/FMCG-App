@@ -10,6 +10,7 @@ const {globalErrController} = require('./controllers/errorController')
 const cors = require('cors');
 const bodyParser = require('body-parser')
 const passport = require('passport');
+const { orderRouter } = require('./routes/orderRoutes');
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -25,6 +26,7 @@ app.use( (req , res , next) =>{
 app.use(express.static(`${__dirname}/public`))
 app.use('/api/v1', userRouter)
 app.use('/api/v1', productRouter)
+app.use('/api/v1', orderRouter)
 
 // Routes
 app.get('/', (req, res) => {
@@ -41,9 +43,10 @@ require(`${__dirname}/utility/passport.js`)
 //Unhandled Routes Handling 
 app.all('*',(req,res,next)=>{
     let err = {
-        message : `Can not find route ${req.originalUrl} on this server.`
+        name : 'customPathError',
+        message : `Can not find route ${req.originalUrl} on this server, Please check API route.`
     }
-    next(new AppError( err,404))
+    return next(new AppError(err, 404));
 })
 
 //Global error Middleware // Ex->{ next(err)} 
